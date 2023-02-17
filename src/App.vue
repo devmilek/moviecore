@@ -1,3 +1,10 @@
+<script setup>
+import TheNavbar from './components/TheNavbar.vue'
+</script>
+
 <template>
-    <main></main>
+    <main>
+        <TheNavbar />
+        <RouterView />
+    </main>
 </template>
