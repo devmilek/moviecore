@@ -1,7 +1,7 @@
 <template>
     <main v-if="isDataLoaded">
         <TheHero :movie="firstTrendingMovie" />
-        {{ trendingMovies }}
+        {{ genresStore.getMovieGenreById() }}
     </main>
 </template>
 
@@ -9,6 +9,7 @@
 import movieDB from '../services/movieDB'
 import { ref } from 'vue'
 import TheHero from '../components/TheHero.vue'
+import { useGenresStore } from '../stores/genres.js'
 
 const trendingMovies = ref([])
 
@@ -22,10 +23,12 @@ const getTrendingMovies = async () => {
 
     firstTrendingMovie.value = trendingMovies.value[0]
     isDataLoaded.value = true
-    console.log(firstTrendingMovie.value)
+    // console.log(firstTrendingMovie.value)
 }
 
 getTrendingMovies()
+
+const genresStore = useGenresStore()
 </script>
 
 <style scoped></style>

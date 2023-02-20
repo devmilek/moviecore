@@ -86,4 +86,8 @@ window.addEventListener('scroll', handleScroll)
     font-weight: 500;
     padding: 8px 16px;
 }
+
+.search-input input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
 </style>
