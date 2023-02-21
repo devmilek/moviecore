@@ -59,7 +59,45 @@
                         <h2>Obsada</h2>
                         <p>Zobacz pełną obsadę</p>
                     </header>
-                    <div class="cast-container"></div>
+                    <div class="cast-container">
+                        <CastTile
+                            v-for="cast in movie.credits.cast.splice(0, 6)"
+                            :key="cast.id"
+                            :cast="cast"
+                        />
+                    </div>
+                </article>
+                <article>
+                    <header>
+                        <h2>Załoga</h2>
+                        <p>Zobacz pełną załogę</p>
+                    </header>
+                    <div class="cast-container">
+                        <CastTile
+                            v-for="cast in movie.credits.crew.splice(0, 3)"
+                            :key="cast.id"
+                            :cast="cast"
+                        />
+                    </div>
+                </article>
+                <article v-if="movie.keywords">
+                    <h2>Słowa kluczowe</h2>
+                    <div class="keywords-container">
+                        <router-link
+                            v-for="keyword in movie.keywords.keywords"
+                            :key="keyword.id"
+                            :to="`/search/${keyword.name}`"
+                            class="keyword"
+                            >{{ keyword.name }}</router-link
+                        >
+                        <router-link
+                            v-for="keyword in movie.keywords.results"
+                            :key="keyword.id"
+                            :to="`/search/${keyword.name}`"
+                            class="keyword"
+                            >{{ keyword.name }}</router-link
+                        >
+                    </div>
                 </article>
             </div>
         </div>
@@ -70,6 +108,7 @@
 import movieDB from '../services/movieDB'
 import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
+import CastTile from '@/components/CastTile.vue'
 
 const movie = ref({})
 const isDataLoaded = ref(false)
@@ -84,11 +123,15 @@ const formatMinutes = (min) => {
 // get movie details from db
 const getMovieDetails = async () => {
     if (route.params.mediaType == 'movie') {
-        const response = await movieDB.get(`/movie/${route.params.id}?&append_to_response=watch/providers,credits,keywords`)
+        const response = await movieDB.get(
+            `/movie/${route.params.id}?&append_to_response=watch/providers,credits,keywords`
+        )
         movie.value = response.data
         isDataLoaded.value = true
     } else {
-        const response = await movieDB.get(`/tv/${route.params.id}?&append_to_response=watch/providers,credits,keywords`)
+        const response = await movieDB.get(
+            `/tv/${route.params.id}?&append_to_response=watch/providers,credits,keywords`
+        )
         movie.value = response.data
         isDataLoaded.value = true
     }
@@ -210,6 +253,29 @@ article header {
 article header p {
     color: #e2e8f0;
     font-size: 14px;
-  cursor: pointer;
+    cursor: pointer;
+}
+
+.cast-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 18px;
+}
+
+.keywords-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.keyword {
+    text-decoration: none;
+    background: #1e293b;
+    border-radius: 24px;
+    padding: 4px 14px;
+    color: #f1f5f9;
+    font-size: 14px;
 }
 </style>
