@@ -42,7 +42,7 @@ const seeMore = () => {
     if (props.movie.media_type == 'movie') {
         router.push(`/movie/${props.movie.id}`)
     } else {
-        router.push(`/tv/${props.movie.id}`)
+        router.push(`/series/${props.movie.id}`)
     }
 }
 </script>
