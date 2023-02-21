@@ -41,10 +41,14 @@
                         </div>
                     </div>
                 </header>
+
+                <!--MOVIE / SERIE DESC-->
                 <article>
                     <h2>Opis</h2>
                     <p>{{ movie.overview }}</p>
                 </article>
+
+                <!--COLLECTION-->
                 <article
                     v-if="movie.belongs_to_collection"
                     :style="{ background: collectionBackground }"
@@ -54,6 +58,23 @@
                     <p>Zobacz wszystkie części serii</p>
                     <button>Zobacz więcej</button>
                 </article>
+
+                <!--SEASONS-->
+                <article v-if="route.params.mediaType === 'series'">
+                    <header>
+                        <h2>Sezony</h2>
+                        <p>Zobacz wszystkie sezony</p>
+                    </header>
+                    <div class="seasons-container">
+                        <SeasonTile
+                            v-for="season in movie.seasons"
+                            :key="season.id"
+                            :season="season"
+                        />
+                    </div>
+                </article>
+
+                <!--CAST-->
                 <article>
                     <header>
                         <h2>Obsada</h2>
@@ -67,6 +88,8 @@
                         />
                     </div>
                 </article>
+
+                <!--CREW-->
                 <article>
                     <header>
                         <h2>Załoga</h2>
@@ -80,6 +103,8 @@
                         />
                     </div>
                 </article>
+
+                <!--KEYWORDS-->
                 <article v-if="movie.keywords">
                     <h2>Słowa kluczowe</h2>
                     <div class="keywords-container">
@@ -109,6 +134,7 @@ import movieDB from '../services/movieDB'
 import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import CastTile from '@/components/CastTile.vue'
+import SeasonTile from '@/components/SeasonTile.vue'
 
 const movie = ref({})
 const isDataLoaded = ref(false)
@@ -135,7 +161,7 @@ const getMovieDetails = async () => {
         movie.value = response.data
         isDataLoaded.value = true
     }
-    console.log(movie.value)
+    // console.log(movie.value)
 }
 
 // make a computed property for background image in collection
@@ -144,7 +170,6 @@ const collectionBackground = computed(() => {
 })
 
 getMovieDetails()
-console.log(route.params.mediaType)
 </script>
 
 <style scoped>
@@ -277,5 +302,12 @@ article header p {
     padding: 4px 14px;
     color: #f1f5f9;
     font-size: 14px;
+}
+
+.seasons-container {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 </style>
