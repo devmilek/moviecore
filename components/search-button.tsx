@@ -11,8 +11,10 @@ import Image from "next/image";
 import { getPoster } from "@/lib/utils";
 import Link from "next/link";
 import { ScrollArea } from "./ui/scroll-area";
+import SearchResults from "./search-button/search-results";
 
 const SearchButton = () => {
+  const [isOpen, setIsOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
   const [results, setResults] = React.useState<MultiSearchResults>();
 
@@ -23,15 +25,22 @@ const SearchButton = () => {
       options: [`query=${value}`],
     });
 
-    const filteredResults = results.results.filter((result) => result.title);
-
-    setResults({ ...results, results: filteredResults });
-
     console.log(results);
+
+    setResults(results);
   }, 300);
 
   return (
-    <Dialog.Root>
+    <Dialog.Root
+      open={isOpen}
+      onOpenChange={(open) => {
+        setIsOpen(open);
+        if (!open) {
+          setValue("");
+          setResults(undefined);
+        }
+      }}
+    >
       <Dialog.Trigger asChild>
         <Button size="icon" variant="ghost">
           <SearchIcon className="h-4 w-4" />
@@ -49,38 +58,11 @@ const SearchButton = () => {
               className="bg-transparent w-full h-12 outline-none px-8"
             />
           </div>
-          {results && results.total_results > 0 && (
-            <ScrollArea className="h-[440px] mt-6">
-              <div className="p-4 border bg-background rounded-lg grid grid-cols-4 gap-4 h-full scroll-auto">
-                {results?.results.map((result) => (
-                  <Link
-                    key={result.id}
-                    href={`/${result.media_type}/${result.id}`}
-                  >
-                    {result.poster_path ? (
-                      <Image
-                        src={getPoster(result.poster_path, "w300")}
-                        alt={result.title}
-                        width={100}
-                        height={200}
-                        className="w-full rounded-md aspect-[2/3] object-cover"
-                      />
-                    ) : (
-                      <div className="aspect-[2/3] relative flex items-end justify-start rounded-xl bg-foreground/5 p-4">
-                        <ImageIcon className="h-4 w-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
-                        <h2 className="text-xs">
-                          {result.title}{" "}
-                          <span className="text-muted-foreground">
-                            ({result.media_type})
-                          </span>
-                        </h2>
-                      </div>
-                    )}
-                  </Link>
-                ))}
-              </div>
-            </ScrollArea>
-          )}
+          {/* {results && results.total_results > 0 && (
+           
+          )} */}
+
+          <SearchResults results={results} />
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
