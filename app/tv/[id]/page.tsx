@@ -101,7 +101,7 @@ const TvPage = async ({
           <h2 className="text-2xl font-bold mt-6">Opis</h2>
           <p className="text-sm text-muted-foreground mt-2">{tv.overview}</p>
         </section>
-        <SeasonSection seasons={tv.seasons} />
+        <SeasonSection seasons={tv.seasons} tvId={params.id} />
         {/* <CollectionCard collection={movie.belongs_to_collection} />
         <CastSection cast={movie.credits.cast} /> */}
       </section>

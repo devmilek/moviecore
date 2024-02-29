@@ -3,9 +3,16 @@ import { getPoster } from "@/lib/utils";
 import { Seasons } from "@/types";
 import { StarIcon } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
-const SeasonSection = ({ seasons }: { seasons: Seasons[] }) => {
+const SeasonSection = ({
+  seasons,
+  tvId,
+}: {
+  seasons: Seasons[];
+  tvId: string;
+}) => {
   if (!seasons) return null;
   return (
     <section>
@@ -21,7 +28,12 @@ const SeasonSection = ({ seasons }: { seasons: Seasons[] }) => {
               className="rounded-xl w-60"
             />
             <div>
-              <h3 className="text-2xl font-bold">{season.name}</h3>
+              <Link
+                href={`/tv/${tvId}/season/${season.season_number}`}
+                className="text-2xl font-bold"
+              >
+                {season.name}
+              </Link>
               <div className="flex space-x-2 mt-2 mb-4">
                 <Badge variant="secondary">
                   <StarIcon className="h-3 w-3 mr-2" /> {season.vote_average}
