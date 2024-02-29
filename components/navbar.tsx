@@ -3,6 +3,7 @@ import React from "react";
 import { Button } from "./ui/button";
 import { SearchIcon } from "lucide-react";
 import SearchButton from "./search-button";
+import LangSwitcher from "./lang-switcher";
 
 const Navbar = () => {
   const navItems = [
@@ -29,6 +30,7 @@ const Navbar = () => {
         </nav>
         <div className="space-x-4 flex ml-auto">
           <SearchButton />
+          <LangSwitcher />
           <Button variant={"ghost"}>Zaloguj się</Button>
           <Button>Utwórz konto</Button>
         </div>
