@@ -62,6 +62,28 @@ const MoviePage = async ({ params }: MoviePageProps) => {
         <VoteAverageCard voteAverage={movie.vote_average} />
         <ReleaseDateCard date={movie.release_date} />
         <RunTimeCard runtime={movie.runtime} />
+        <section>
+          <h2 className="text-2xl font-bold mb-4">Produkcja</h2>
+          <div className="space-y-4">
+            {movie.production_companies.map((company) => (
+              <div key={company.id} className="flex items-center space-x-4">
+                <Image
+                  src={getPoster(company.logo_path, "original")}
+                  alt={company.name}
+                  width={46}
+                  height={46}
+                  className="rounded-md w-12 h-12 object-contain"
+                />
+                <div>
+                  <h3 className="text-md font-bold">{company.name}</h3>
+                  <p className="text-muted-foreground text-sm">
+                    {company.origin_country} {company.id}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
       </section>
       <section className="w-full space-y-8">
         <header>

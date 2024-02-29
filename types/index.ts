@@ -62,6 +62,11 @@ export interface Collection {
   backdrop_path: string;
 }
 
+export interface CollectionDetails extends Collection {
+  parts: Movie[];
+  overview: string;
+}
+
 interface ProviderDetail {
   logo_path: string;
   provider_id: number;
@@ -156,16 +161,18 @@ export interface Seasons {
   vote_average: number;
 }
 
+export interface CreatedBy {
+  id: number;
+  credit_id: string;
+  name: string;
+  gender: number;
+  profile_path: string;
+}
+
 export interface TvDetails {
   adult: boolean;
   backdrop_path: string;
-  created_by: {
-    id: number;
-    credit_id: string;
-    name: string;
-    gender: number;
-    profile_path: string;
-  };
+  created_by: CreatedBy;
   episode_run_time: number[];
   first_air_date: string;
   genres: {

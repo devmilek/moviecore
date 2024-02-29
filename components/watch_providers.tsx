@@ -9,6 +9,7 @@ const WatchProviders = ({
 }: {
   watchProviders: CountryProviders;
 }) => {
+  if (!watchProviders.PL) return null;
   return (
     <section className="space-y-4">
       <h2 className="text-xl font-bold">Dostępne platformy</h2>
