@@ -7,6 +7,33 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import React from "react";
 import SeasonSection from "./_components/seasons-section";
+import { Metadata } from "next";
+import VoteAverageCard from "@/components/vote-average-card";
+import Link from "next/link";
+import WatchProviders from "@/components/watch_providers";
+import moment from "moment";
+import ReleaseDateCard from "@/components/release-date-card";
+
+interface TvPageProps {
+  params: {
+    id: string;
+  };
+}
+
+export async function generateMetadata({
+  params,
+}: TvPageProps): Promise<Metadata> {
+  const tv: TvDetails = await fetcher({
+    url: `/tv/${params.id}`,
+    lang: "pl",
+    options: [],
+  });
+  return {
+    title: tv.name,
+    description: tv.overview,
+    keywords: tv.genres.map((genre) => genre.name).join(", "),
+  };
+}
 
 const TvPage = async ({
   params,
@@ -18,7 +45,7 @@ const TvPage = async ({
   const tv: TvDetails = await fetcher({
     url: `/tv/${params.id}`,
     lang: "pl",
-    options: [],
+    options: ["append_to_response=watch/providers"],
   });
 
   if (!tv) {
@@ -34,50 +61,9 @@ const TvPage = async ({
           height={450}
           className="rounded-xl w-full"
         />
-        {/* <section className="space-y-4">
-          <h2 className="text-xl font-bold">Dostępne platformy</h2>
-          {movie["watch/providers"].results.PL?.flatrate?.map((provider) => (
-            <Link
-              href={movie["watch/providers"].results.PL.link}
-              target="_blank"
-              rel="noreferrer"
-              key={provider.provider_id}
-              className="flex space-x-4 p-2 rounded-xl bg-white/5"
-            >
-              <Image
-                src={getPoster(provider.logo_path, "original")}
-                alt={provider.provider_name}
-                width={50}
-                height={50}
-                className="rounded-xl"
-              />
-              <div className="flex flex-col justify-center">
-                <p className="text-sm text-muted-foreground">Oglądaj teraz</p>
-                <h3 className="text-sm font-semibold">
-                  {provider.provider_name}
-                </h3>
-              </div>
-            </Link>
-          ))}
-        </section> */}
-        <section>
-          <h2 className="text-xl font-bold">Ocena</h2>
-          <p className="text-sm text-muted-foreground mt-2">
-            {tv.vote_average} / 10
-          </p>
-        </section>
-        <section>
-          <h2 className="text-xl font-bold">Data premiery</h2>
-          <p className="text-sm text-muted-foreground mt-2">
-            {tv.first_air_date}
-          </p>
-        </section>
-        {/* <section>
-          <h2 className="text-xl font-bold">Czas trwania</h2>
-          <p className="text-sm text-muted-foreground mt-2">
-            {movie.runtime} min
-          </p>
-        </section> */}
+        <WatchProviders watchProviders={tv["watch/providers"].results} />
+        <VoteAverageCard voteAverage={tv.vote_average} />
+        <ReleaseDateCard date={tv.first_air_date} />
       </section>
       <section className="w-full space-y-8">
         <header>

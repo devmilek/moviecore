@@ -11,6 +11,10 @@ import { notFound } from "next/navigation";
 import React from "react";
 import CastSection from "./_components/cast_section";
 import { CalendarIcon, ClockIcon } from "lucide-react";
+import WatchProviders from "@/components/watch_providers";
+import VoteAverageCard from "@/components/vote-average-card";
+import ReleaseDateCard from "@/components/release-date-card";
+import RunTimeCard from "@/components/runtime-card";
 
 interface MoviePageProps {
   params: {
@@ -54,50 +58,10 @@ const MoviePage = async ({ params }: MoviePageProps) => {
           height={450}
           className="rounded-xl w-full"
         />
-        <section className="space-y-4">
-          <h2 className="text-xl font-bold">Dostępne platformy</h2>
-          {movie["watch/providers"].results.PL?.flatrate?.map((provider) => (
-            <Link
-              href={movie["watch/providers"].results.PL.link}
-              target="_blank"
-              rel="noreferrer"
-              key={provider.provider_id}
-              className="flex space-x-4 p-2 rounded-xl bg-white/5"
-            >
-              <Image
-                src={getPoster(provider.logo_path, "original")}
-                alt={provider.provider_name}
-                width={50}
-                height={50}
-                className="rounded-xl"
-              />
-              <div className="flex flex-col justify-center">
-                <p className="text-sm text-muted-foreground">Oglądaj teraz</p>
-                <h3 className="text-sm font-semibold">
-                  {provider.provider_name}
-                </h3>
-              </div>
-            </Link>
-          ))}
-        </section>
-        <section>
-          <h2 className="text-xl font-bold">Ocena</h2>
-          <p className="text-sm text-muted-foreground mt-2">
-            {movie.vote_average} / 10
-          </p>
-        </section>
-        <section>
-          <h2 className="text-xl font-bold">Data premiery</h2>
-          <p className="text-sm text-muted-foreground mt-2">
-            {movie.release_date}
-          </p>
-        </section>
-        <section>
-          <h2 className="text-xl font-bold">Czas trwania</h2>
-          <p className="text-sm text-muted-foreground mt-2">
-            {movie.runtime} min
-          </p>
-        </section>
+        <WatchProviders watchProviders={movie["watch/providers"].results} />
+        <VoteAverageCard voteAverage={movie.vote_average} />
+        <ReleaseDateCard date={movie.release_date} />
+        <RunTimeCard runtime={movie.runtime} />
       </section>
       <section className="w-full space-y-8">
         <header>

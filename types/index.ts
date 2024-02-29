@@ -227,6 +227,9 @@ export interface TvDetails {
   type: string;
   vote_average: number;
   vote_count: number;
+  "watch/providers": {
+    results: CountryProviders;
+  };
 }
 
 export interface Episode {

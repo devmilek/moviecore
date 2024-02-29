@@ -5,15 +5,32 @@ import { SeasonDetails } from "@/types";
 import { StarIcon } from "lucide-react";
 import Image from "next/image";
 import React from "react";
+import EpisodeCard from "./_components/episode-card";
+import { Metadata } from "next";
 
-const SeasonPage = async ({
-  params,
-}: {
+interface SeasonPageProps {
   params: {
     id: string;
     number: string;
   };
-}) => {
+}
+
+export async function generateMetadata({
+  params,
+}: SeasonPageProps): Promise<Metadata> {
+  const season: SeasonDetails = await fetcher({
+    url: `/tv/${params.id}/season/${params.number}`,
+    lang: "pl",
+    options: [],
+  });
+  return {
+    title: season.name,
+    // description: movie.overview,
+    // keywords: movie.genres.map((genre) => genre.name).join(", "),
+  };
+}
+
+const SeasonPage = async ({ params }: SeasonPageProps) => {
   const season: SeasonDetails = await fetcher({
     url: `/tv/${params.id}/season/${params.number}`,
     lang: "pl",
@@ -46,27 +63,7 @@ const SeasonPage = async ({
         <h2 className="text-2xl font-bold mb-4">Odcinki</h2>
         <ul className="space-y-6">
           {season.episodes.map((episode) => (
-            <li key={episode.id} className="flex items-center space-x-4">
-              <Image
-                src={getPoster(episode.still_path, "w780")}
-                alt={episode.name}
-                width={300}
-                height={450}
-                className="rounded-xl w-80"
-              />
-              <div>
-                <h3 className="text-2xl font-bold">{episode.name}</h3>
-                <div className="flex space-x-2 mt-2 mb-4">
-                  <Badge variant="secondary">
-                    <StarIcon className="h-3 w-3 mr-2" /> {episode.vote_average}
-                  </Badge>
-                  <Badge variant="outline">{episode.runtime} min</Badge>
-                </div>
-                <p className="text-muted-foreground text-sm">
-                  {episode.overview}
-                </p>
-              </div>
-            </li>
+            <EpisodeCard episode={episode} key={episode.id} />
           ))}
         </ul>
       </section>
