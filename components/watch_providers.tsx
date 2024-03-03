@@ -1,4 +1,4 @@
-import { getPoster } from "@/lib/utils";
+import { getImage } from "@/lib/utils";
 import { CountryProviders } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
@@ -22,7 +22,7 @@ const WatchProviders = ({
           className="flex space-x-4 p-2 rounded-xl bg-white/5"
         >
           <Image
-            src={getPoster(provider.logo_path, "original")}
+            src={getImage(provider.logo_path, "logo", "w92")}
             alt={provider.provider_name}
             width={50}
             height={50}

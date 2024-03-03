@@ -3,15 +3,15 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { ImageIcon, SearchIcon, XIcon } from "lucide-react";
 import React from "react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { useDebouncedCallback } from "use-debounce";
 import { fetcher } from "@/lib/fetcher";
 import { MultiSearchResult, MultiSearchResults } from "@/types";
 import Image from "next/image";
 import { getPoster } from "@/lib/utils";
 import Link from "next/link";
-import { ScrollArea } from "./ui/scroll-area";
-import SearchResults from "./search-button/search-results";
+import { ScrollArea } from "../ui/scroll-area";
+import SearchResults from "./search-results";
 
 const SearchButton = () => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -58,9 +58,6 @@ const SearchButton = () => {
               className="bg-transparent w-full h-12 outline-none px-8"
             />
           </div>
-          {/* {results && results.total_results > 0 && (
-           
-          )} */}
 
           <SearchResults results={results} />
         </Dialog.Content>

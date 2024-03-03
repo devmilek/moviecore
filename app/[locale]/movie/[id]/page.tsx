@@ -106,7 +106,7 @@ const MoviePage = async ({ params }: MoviePageProps) => {
           <p className="text-sm text-muted-foreground mt-2">{movie.overview}</p>
         </section>
         <CollectionCard collection={movie.belongs_to_collection} />
-        <CastSection cast={movie.credits.cast} />
+        <CastSection cast={movie.credits.cast} id={params.id} />
       </section>
     </div>
   );

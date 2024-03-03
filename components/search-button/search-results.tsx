@@ -1,10 +1,10 @@
 import { MultiSearchResult, MultiSearchResults } from "@/types";
 import React from "react";
 import { ScrollArea } from "../ui/scroll-area";
-import Link from "next/link";
-import { getPoster } from "@/lib/utils";
 import Image from "next/image";
 import { ImageIcon } from "lucide-react";
+import { getImage } from "@/lib/utils";
+import { Link } from "@/lib/navigation";
 
 const SearchResults = ({
   results,
@@ -31,7 +31,7 @@ const SearchResults = ({
               <Link key={result.id} href={`/${result.media_type}/${result.id}`}>
                 {result.poster_path ? (
                   <Image
-                    src={getPoster(result.poster_path, "w300")}
+                    src={getImage(result.poster_path, "poster", "w342")}
                     alt={result.title}
                     width={100}
                     height={200}
@@ -59,7 +59,7 @@ const SearchResults = ({
               <Link key={result.id} href={`/${result.media_type}/${result.id}`}>
                 {result.poster_path ? (
                   <Image
-                    src={getPoster(result.poster_path, "w300")}
+                    src={getImage(result.poster_path, "poster", "w342")}
                     alt={result.title}
                     width={100}
                     height={200}
@@ -88,7 +88,7 @@ const SearchResults = ({
                 <div>
                   {result.profile_path ? (
                     <Image
-                      src={getPoster(result.profile_path, "w300")}
+                      src={getImage(result.profile_path, "profile", "w185")}
                       alt={result.name}
                       width={100}
                       height={200}

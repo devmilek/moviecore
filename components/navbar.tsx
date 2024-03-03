@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 import { Button } from "./ui/button";
 import { SearchIcon } from "lucide-react";
-import SearchButton from "./search-button";
+import SearchButton from "./search-button/search-button";
 import LangSwitcher from "./lang-switcher";
 
 const Navbar = () => {

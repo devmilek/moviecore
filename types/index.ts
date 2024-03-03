@@ -65,8 +65,14 @@ export interface Crew {
   popularity: number;
   profile_path: string;
   credit_id: string;
-  departament: string;
+  department: string;
   job: string;
+}
+
+export interface CastResponse {
+  id: number;
+  cast: Cast[];
+  crew: Crew[];
 }
 
 export interface Collection {
