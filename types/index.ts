@@ -15,6 +15,20 @@ export interface Movie {
   vote_count: number;
 }
 
+export interface DiscoverMovies {
+  page: number;
+  results: Movie[];
+  total_pages: number;
+  total_results: number;
+}
+
+export interface GenreList {
+  genres: {
+    id: number;
+    name: string;
+  }[];
+}
+
 export interface MovieList {
   dates: {
     maximum: string;

@@ -1,4 +1,3 @@
-import { getPoster } from "@/lib/utils";
 import { MovieList } from "@/types";
 import React from "react";
 import {
@@ -14,14 +13,14 @@ import { Button } from "./ui/button";
 import { fetcher } from "@/lib/fetcher";
 import { getLocale } from "next-intl/server";
 import { Link } from "@/lib/navigation";
+import { getImage } from "@/lib/utils";
 
 const Hero = async () => {
-  const locale = await getLocale();
   const nowPlaying: MovieList = await fetcher({
     url: "/movie/now_playing",
-    lang: locale,
     options: [],
   });
+
   return (
     <div className="">
       <Carousel className="w-full">
@@ -36,14 +35,12 @@ const Hero = async () => {
                       {movie.overview}
                     </p>
                     <Button className="mt-6" asChild>
-                      <Link href={`/movie/${movie.id}`}>
-                        Zobacz więcej {locale}
-                      </Link>
+                      <Link href={`/movie/${movie.id}`}>Zobacz więcej</Link>
                     </Button>
                   </div>
                 </div>
                 <Image
-                  src={getPoster(movie.backdrop_path, "w1280")}
+                  src={getImage(movie.backdrop_path, "backdrop", "w1280")}
                   alt={movie.title}
                   width={1280}
                   height={720}

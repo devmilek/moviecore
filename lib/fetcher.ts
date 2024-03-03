@@ -1,15 +1,16 @@
 "use server";
 
-export const fetcher = ({
+import { getLocale } from "next-intl/server";
+
+export const fetcher = async ({
   url,
-  lang,
   options,
 }: {
   url: string;
-  lang: string;
   options: string[];
 }) => {
-  const langParam = "?language=" + lang;
+  const locale = await getLocale();
+  const langParam = "?language=" + locale;
 
   const optionsParam = options ? "&" + options.join("&") : "";
 

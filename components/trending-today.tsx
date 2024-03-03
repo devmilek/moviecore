@@ -1,5 +1,5 @@
 import { fetcher } from "@/lib/fetcher";
-import { cn, getPoster } from "@/lib/utils";
+import { cn, getImage } from "@/lib/utils";
 import { MultiSearchResult, MultiSearchResults } from "@/types";
 import Image from "next/image";
 import React from "react";
@@ -10,12 +10,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "./ui/carousel";
-import {
-  B612_Mono,
-  Chivo_Mono,
-  DM_Mono,
-  IBM_Plex_Mono,
-} from "next/font/google";
+import { IBM_Plex_Mono } from "next/font/google";
 import { Link } from "@/lib/navigation";
 
 const mono = IBM_Plex_Mono({
@@ -26,7 +21,6 @@ const mono = IBM_Plex_Mono({
 const TrendingToday = async () => {
   const trendingToday: MultiSearchResults = await fetcher({
     url: "/trending/all/day",
-    lang: "pl",
     options: [],
   });
   return (
@@ -72,7 +66,7 @@ const TrendingCard = ({
         {index}
       </span>
       <Image
-        src={getPoster(item.poster_path, "w780")}
+        src={getImage(item.poster_path, "poster", "w780")}
         alt={item.title}
         width={300}
         height={450}

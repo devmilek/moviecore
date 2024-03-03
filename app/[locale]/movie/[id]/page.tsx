@@ -2,11 +2,9 @@ import CollectionCard from "@/components/collection-card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { fetcher } from "@/lib/fetcher";
-import { getPoster } from "@/lib/utils";
 import { Movie, MovieDetails } from "@/types";
 import { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import React from "react";
 import CastSection from "./_components/cast_section";
@@ -16,6 +14,8 @@ import VoteAverageCard from "@/components/vote-average-card";
 import ReleaseDateCard from "@/components/release-date-card";
 import RunTimeCard from "@/components/runtime-card";
 import { getLocale } from "next-intl/server";
+import { Link } from "@/lib/navigation";
+import { getImage } from "@/lib/utils";
 
 interface MoviePageProps {
   params: {
@@ -28,7 +28,6 @@ export async function generateMetadata({
 }: MoviePageProps): Promise<Metadata> {
   const movie: MovieDetails = await fetcher({
     url: `/movie/${params.id}`,
-    lang: "pl",
     options: [],
   });
   return {
@@ -39,10 +38,8 @@ export async function generateMetadata({
 }
 
 const MoviePage = async ({ params }: MoviePageProps) => {
-  const locale = await getLocale();
   const movie: MovieDetails = await fetcher({
     url: `/movie/${params.id}`,
-    lang: locale,
     options: ["append_to_response=credits,watch/providers"],
   });
 
@@ -54,7 +51,7 @@ const MoviePage = async ({ params }: MoviePageProps) => {
     <div className="flex space-x-8">
       <section className="w-96 space-y-5">
         <Image
-          src={getPoster(movie.poster_path, "w780")}
+          src={getImage(movie.poster_path, "poster", "w500")}
           alt={movie.title}
           width={300}
           height={450}
@@ -70,7 +67,7 @@ const MoviePage = async ({ params }: MoviePageProps) => {
             {movie.production_companies.map((company) => (
               <div key={company.id} className="flex items-center space-x-4">
                 <Image
-                  src={getPoster(company.logo_path, "original")}
+                  src={getImage(company.logo_path, "logo", "original")}
                   alt={company.name}
                   width={46}
                   height={46}
@@ -98,7 +95,7 @@ const MoviePage = async ({ params }: MoviePageProps) => {
           <div className="gap-2 flex flex-wrap mt-4">
             {movie.genres.map((genre) => (
               <Badge variant="outline" key={genre.id}>
-                {genre.name}
+                <Link href={`/movie/genre/${genre.id}`}>{genre.name}</Link>
               </Badge>
             ))}
           </div>

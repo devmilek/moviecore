@@ -1,9 +1,9 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { getPoster } from "@/lib/utils";
 import { Cast } from "@/types";
 import { PlusIcon, UserIcon } from "lucide-react";
+import { getImage } from "@/lib/utils";
 
 const CastSection = ({ cast }: { cast: Cast[] | null }) => {
   if (!cast) return null;
@@ -22,7 +22,7 @@ const CastSection = ({ cast }: { cast: Cast[] | null }) => {
             >
               {actor.profile_path ? (
                 <Image
-                  src={getPoster(actor.profile_path, "w300")}
+                  src={getImage(actor.profile_path, "profile", "w185")}
                   alt={actor.name}
                   width={100}
                   height={150}
