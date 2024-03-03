@@ -16,7 +16,7 @@ import {
   DM_Mono,
   IBM_Plex_Mono,
 } from "next/font/google";
-import Link from "next/link";
+import { Link } from "@/lib/navigation";
 
 const mono = IBM_Plex_Mono({
   subsets: ["latin"],

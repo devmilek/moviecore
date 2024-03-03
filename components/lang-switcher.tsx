@@ -6,18 +6,29 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { Button } from "./ui/button";
+import { getLocale } from "next-intl/server";
+import { Link } from "@/lib/navigation";
 
-const LangSwitcher = () => {
+const LangSwitcher = async () => {
+  const locale = await getLocale();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline">
-          <span>PL</span>
+        <Button variant="outline" className="uppercase">
+          {locale}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem>PL</DropdownMenuItem>
-        <DropdownMenuItem>EN</DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link href="/" locale="pl">
+            PL
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link href="/" locale="en">
+            EN
+          </Link>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

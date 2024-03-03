@@ -15,6 +15,7 @@ import WatchProviders from "@/components/watch_providers";
 import VoteAverageCard from "@/components/vote-average-card";
 import ReleaseDateCard from "@/components/release-date-card";
 import RunTimeCard from "@/components/runtime-card";
+import { getLocale } from "next-intl/server";
 
 interface MoviePageProps {
   params: {
@@ -38,9 +39,10 @@ export async function generateMetadata({
 }
 
 const MoviePage = async ({ params }: MoviePageProps) => {
+  const locale = await getLocale();
   const movie: MovieDetails = await fetcher({
     url: `/movie/${params.id}`,
-    lang: "pl",
+    lang: locale,
     options: ["append_to_response=credits,watch/providers"],
   });
 
