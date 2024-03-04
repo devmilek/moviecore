@@ -1,6 +1,22 @@
 {
   "Index": {
-    "title": "Witaj świecie!",
-    "seeMore": "Zobacz więcej"
+    "movies": "Filmy",
+    "tvShows": "Seriale",
+    "cast": "Obsada",
+    "createAccount": "Utwórz konto",
+    "signIn": "Zaloguj się",
+    "seeMore": "Zobacz więcej",
+    "trending": "Trendujące",
+    "saveOnList": "Zapisz na liście",
+    "seeTrailer": "Zobacz zwiastun",
+    "overview": "Opis",
+    "backdrops": "Tła",
+    "posters": "Plakaty",
+    "recommendations": "Rekomendacje",
+    "suggestions": "Sugestie",
+    "runtime": "Czas trwania",
+    "releaseDate": "Data premiery",
+    "rating": "Ocena",
+    "watchNow": "Oglądaj teraz"
   }
 }

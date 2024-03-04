@@ -15,6 +15,23 @@ export interface Movie {
   vote_count: number;
 }
 
+export interface Tv {
+  adult: boolean;
+  backdrop_path: string;
+  genre_ids: number[];
+  id: number;
+  origin_country: string[];
+  original_language: string;
+  original_name: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  first_air_date: string;
+  name: string;
+  vote_average: number;
+  vote_count: number;
+}
+
 export interface DiscoverMovies {
   page: number;
   results: Movie[];
@@ -135,6 +152,13 @@ export interface ImagesResponse {
   logos: ImagesResponseItem[];
 }
 
+export interface ResponseWithPage<T> {
+  page: number;
+  results: T[];
+  total_pages: number;
+  total_results: number;
+}
+
 export interface MovieDetails extends Movie {
   belongs_to_collection: Collection | null;
   "watch/providers": {
@@ -174,6 +198,8 @@ export interface MovieDetails extends Movie {
   videos: {
     results: Video[];
   };
+  similar: ResponseWithPage<Movie>;
+  recommendations: ResponseWithPage<Movie>;
 }
 
 export interface MultiSearchResult {
@@ -319,4 +345,11 @@ export interface SeasonDetails {
   poster_path: string;
   season_number: number;
   vote_average: number;
+}
+
+export interface MovieList {
+  page: number;
+  results: Movie[];
+  total_pages: number;
+  total_results: number;
 }

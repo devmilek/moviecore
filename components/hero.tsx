@@ -11,11 +11,13 @@ import Image from "next/image";
 import Autoplay from "embla-carousel-autoplay";
 import { Button } from "./ui/button";
 import { fetcher } from "@/lib/fetcher";
-import { getLocale } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/lib/navigation";
 import { getImage } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 const Hero = async () => {
+  const t = await getTranslations("Index");
   const nowPlaying: MovieList = await fetcher({
     url: "/movie/now_playing",
     options: [],
@@ -35,7 +37,7 @@ const Hero = async () => {
                       {movie.overview}
                     </p>
                     <Button className="mt-6" asChild>
-                      <Link href={`/movie/${movie.id}`}>Zobacz więcej</Link>
+                      <Link href={`/movie/${movie.id}`}>{t("seeMore")}</Link>
                     </Button>
                   </div>
                 </div>

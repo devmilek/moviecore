@@ -1,4 +1,4 @@
-import MovieCard from "@/components/movie-card";
+import UniversalCard from "@/components/universal-card";
 import { fetcher } from "@/lib/fetcher";
 import { DiscoverMovies, GenreList } from "@/types";
 import { getLocale } from "next-intl/server";
@@ -43,7 +43,7 @@ const MovieGenrePage = async ({ params }: MovieGenrePageProps) => {
       </header>
       <section className="grid grid-cols-5 gap-4">
         {movies.results.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} />
+          <UniversalCard key={movie.id} item={movie} />
         ))}
       </section>
     </div>

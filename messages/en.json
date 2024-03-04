@@ -1,6 +1,11 @@
 {
   "Index": {
-    "title": "Hello world!",
-    "seeMore": "See more"
+  "movies": "Movies",
+  "tvShows": "TV Shows",
+  "cast": "Cast",
+  "createAccount": "Create account",
+  "signIn": "Sign In",
+  "seeMore": "See More",
+  "trending": "Trending"
   }
 }
