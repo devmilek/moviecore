@@ -6,7 +6,7 @@ import { Movie, MovieDetails } from "@/types";
 import { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import React from "react";
+import React, { Suspense } from "react";
 import CastSection from "./_components/cast_section";
 import { CalendarIcon, ClockIcon } from "lucide-react";
 import WatchProviders from "@/components/watch_providers";
@@ -18,7 +18,9 @@ import { Link } from "@/lib/navigation";
 import { getImage } from "@/lib/utils";
 import TrailerButton from "@/components/trailer-button";
 import MediaSection from "./_components/media-section";
-import UniversalFeed from "@/components/universal-feed";
+import UniversalFeed, {
+  UniversalFeedSkeleton,
+} from "@/components/universal-feed";
 
 interface MoviePageProps {
   params: {
@@ -109,11 +111,28 @@ const MoviePage = async ({ params }: MoviePageProps) => {
           <MediaSection movieId={params.id} />
         </section>
       </div>
-      <UniversalFeed
-        heading="Rekomendacje"
-        items={movie.recommendations.results}
-      />
-      <UniversalFeed heading="Podobne filmy" items={movie.similar.results} />
+      <Suspense fallback={<UniversalFeedSkeleton />}>
+        <UniversalFeed
+          heading="Rekomendacje"
+          getFn={() =>
+            fetcher({
+              url: `/movie/${params.id}/recommendations`,
+              options: [],
+            })
+          }
+        />
+      </Suspense>
+      <Suspense fallback={<UniversalFeedSkeleton />}>
+        <UniversalFeed
+          heading="Podobne filmy"
+          getFn={() =>
+            fetcher({
+              url: `/movie/${params.id}/similar`,
+              options: [],
+            })
+          }
+        />
+      </Suspense>
     </div>
   );
 };
