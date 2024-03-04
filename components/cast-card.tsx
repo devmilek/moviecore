@@ -8,7 +8,7 @@ import React from "react";
 const CastCard = ({ cast }: { cast: Cast }) => {
   return (
     <article key={cast.id}>
-      <Link href={`/person/${cast.id}`} className="flex items-center space-x-4">
+      <Link href={`/people/${cast.id}`} className="flex items-center space-x-4">
         {cast.profile_path ? (
           <Image
             src={getImage(cast.profile_path, "profile", "w185")}

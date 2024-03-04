@@ -2,8 +2,8 @@ import { Collection } from "@/types";
 import Image from "next/image";
 import React from "react";
 import { Button } from "./ui/button";
-import Link from "next/link";
 import { getImage } from "@/lib/utils";
+import { Link } from "@/lib/navigation";
 
 const CollectionCard = ({ collection }: { collection: Collection | null }) => {
   if (!collection) {
