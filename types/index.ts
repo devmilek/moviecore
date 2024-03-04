@@ -165,6 +165,7 @@ export interface MovieDetails extends Movie {
     results: CountryProviders;
   };
   watch: any;
+  name: string;
   budget: number;
   genres: {
     id: number;
@@ -315,6 +316,13 @@ export interface TvDetails {
   vote_count: number;
   "watch/providers": {
     results: CountryProviders;
+  };
+  credits: {
+    cast: Cast[];
+    crew: Crew[];
+  };
+  videos: {
+    results: Video[];
   };
 }
 

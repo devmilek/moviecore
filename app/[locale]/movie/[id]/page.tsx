@@ -21,6 +21,7 @@ import MediaSection from "./_components/media-section";
 import UniversalFeed, {
   UniversalFeedSkeleton,
 } from "@/components/universal-feed";
+import MovieHeader from "./_components/movie-header";
 
 interface MoviePageProps {
   params: {
@@ -65,18 +66,14 @@ const MoviePage = async ({ params }: MoviePageProps) => {
     ],
   });
 
-  const localeVideo = movie.videos.results.find(
-    (video) => video.iso_639_1.toLocaleLowerCase() === locale
-  );
-
   if (!movie) {
     return notFound();
   }
 
   return (
     <div className="space-y-12">
-      <div className="flex space-x-8">
-        <section className="w-96 space-y-6">
+      <div className="flex md:space-x-8">
+        <section className="w-96 space-y-6 hidden md:block">
           <Image
             src={getImage(movie.poster_path, "poster", "w500")}
             alt={movie.title}
@@ -90,36 +87,13 @@ const MoviePage = async ({ params }: MoviePageProps) => {
           <RunTimeCard runtime={movie.runtime} />
         </section>
         <section className="w-full space-y-8">
-          <header>
-            <h1 className="text-4xl font-bold">
-              {movie.title}{" "}
-              <span className="text-2xl font-semibold text-foreground/70">
-                ({movie.release_date.split("-")[0]})
-              </span>
-            </h1>
-            {movie.tagline && (
-              <p className="text-muted-foreground text-lg mt-2">
-                {movie.tagline}
-              </p>
-            )}
-            <div className="gap-2 flex flex-wrap mt-4">
-              {movie.genres.map((genre) => (
-                <Badge variant="outline" key={genre.id}>
-                  <Link href={`/movie/genre/${genre.id}`}>{genre.name}</Link>
-                </Badge>
-              ))}
-            </div>
-            <div className="mt-4 space-x-2">
-              <Button>Zapisz na liście</Button>
-              {localeVideo && <TrailerButton video={localeVideo} />}
-            </div>
-          </header>
-          <section>
-            <h2 className="text-2xl font-bold mt-6">Opis</h2>
-            <p className="text-sm text-muted-foreground mt-2">
-              {movie.overview}
-            </p>
-          </section>
+          <MovieHeader movie={movie} />
+          <div className="md:hidden space-y-4">
+            <WatchProviders watchProviders={movie["watch/providers"].results} />
+            <VoteAverageCard voteAverage={movie.vote_average} />
+            <ReleaseDateCard date={movie.release_date} />
+            <RunTimeCard runtime={movie.runtime} />
+          </div>
           <CollectionCard collection={movie.belongs_to_collection} />
           <CastSection cast={movie.credits.cast} id={params.id} />
           <MediaSection movieId={params.id} />

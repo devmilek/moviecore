@@ -22,7 +22,7 @@ const MoviesWatchProvider = async () => {
   return (
     <section>
       <h1 className="text-3xl font-bold mb-4">Serwisy streamingowe</h1>
-      <div className="flex flex-wrap items-center gap-4">
+      <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-12 xl:grid-cols-[15] gap-4">
         {sortedProviders.slice(0, MAX_PROVIDERS).map((provider) => (
           <div key={provider.provider_id}>
             <Image
@@ -30,11 +30,11 @@ const MoviesWatchProvider = async () => {
               alt={provider.provider_name}
               width={300}
               height={300}
-              className="aspect-square w-16 rounded-lg"
+              className="aspect-square w-full rounded-lg"
             />
           </div>
         ))}
-        <div className="aspect-square w-16 rounded-lg bg-foreground/5 border flex items-center justify-center font-semibold">
+        <div className="aspect-square w-full rounded-lg bg-foreground/5 border flex items-center justify-center font-semibold">
           + {sortedProviders.length - MAX_PROVIDERS}
         </div>
       </div>

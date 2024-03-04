@@ -31,7 +31,7 @@ const PopularPeople = async () => {
       >
         <CarouselContent>
           {peopleWithImages.map((person) => (
-            <CarouselItem key={person.id} className="basis-[14%]">
+            <CarouselItem key={person.id} className="basis-1/3 lg:basis-[14%]">
               <Link href={`/people/${person.id}`} className="block">
                 <Image
                   src={getImage(person.profile_path, "profile", "h632")}

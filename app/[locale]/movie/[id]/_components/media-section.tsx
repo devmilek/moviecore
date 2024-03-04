@@ -12,7 +12,7 @@ const MediaSection = async ({ movieId }: { movieId: string }) => {
     options: ["include_image_language=null"],
   });
 
-  const maxBackdrops = 5;
+  const maxBackdrops = 3;
   const maxPosters = 7;
 
   return (
@@ -30,7 +30,7 @@ const MediaSection = async ({ movieId }: { movieId: string }) => {
           </TabsList>
         </header>
         <TabsContent value="backdrops">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid sm:grid-cols-2 gap-4">
             {media.backdrops.slice(0, maxBackdrops).map((backdrop) => (
               <Image
                 key={backdrop.file_path}
@@ -50,7 +50,7 @@ const MediaSection = async ({ movieId }: { movieId: string }) => {
           </div>
         </TabsContent>
         <TabsContent value="posters">
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {media.posters.slice(0, maxPosters).map((poster) => (
               <Image
                 key={poster.file_path}

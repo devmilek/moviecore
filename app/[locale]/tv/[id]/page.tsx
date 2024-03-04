@@ -99,8 +99,7 @@ const TvPage = async ({
           <p className="text-sm text-muted-foreground mt-2">{tv.overview}</p>
         </section>
         <SeasonSection seasons={tv.seasons} tvId={params.id} />
-        {/* <CollectionCard collection={movie.belongs_to_collection} />
-        <CastSection cast={movie.credits.cast} /> */}
+        {/* <CastSection cast={movie.credits.cast} /> * */}
       </section>
     </div>
   );

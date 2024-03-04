@@ -14,7 +14,7 @@ const CastSection = ({ cast, id }: { cast: Cast[] | null; id: string }) => {
   return (
     <section>
       <h2 className="text-2xl font-bold mt-6">Obsada</h2>
-      <div className="mt-4 grid grid-cols-3 gap-4">
+      <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
         {cast.slice(0, castLimit).map((actor) => (
           <CastCard cast={actor} key={actor.id} />
         ))}
