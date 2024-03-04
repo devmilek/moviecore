@@ -15,8 +15,8 @@ const Navbar = () => {
     { name: t("cast"), href: "/cast" },
   ];
   return (
-    <header className="fixed w-full z-50">
-      <div className="container py-3 flex items-center bg-background">
+    <header className="fixed w-full z-50 bg-background">
+      <div className="container py-3 flex items-center">
         <Link href="/" className="text-xl font-bold">
           Moviecore
         </Link>

@@ -370,3 +370,47 @@ export interface AvailableWatchProviders {
     provider_id: number;
   }[];
 }
+
+export interface PersonDetails {
+  adult: boolean;
+  also_known_as: string[];
+  biography: string;
+  birthday: string;
+  deathday: string;
+  gender: 0 | 1 | 2 | 3;
+  homepage: string;
+  id: number;
+  imdb_id: string;
+  known_for_department: string;
+  name: string;
+  place_of_birth: string;
+  popularity: number;
+  profile_path: string;
+  combined_credits: {
+    cast: CominedCredits[];
+    crew: Crew[];
+  };
+}
+
+export interface CominedCredits {
+  adult: boolean;
+  backdrop_path: string;
+  genre_ids: number[];
+  id: number;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  release_date: string;
+  title: string;
+  name: string;
+  first_air_date: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
+  character: string;
+  credit_id: string;
+  order: number;
+  media_type: string;
+}

@@ -25,7 +25,7 @@ const SeasonSection = ({
               alt={season.name}
               width={300}
               height={450}
-              className="rounded-xl w-60"
+              className="rounded-xl w-52"
             />
             <div className="w-full">
               <Link
@@ -43,7 +43,7 @@ const SeasonSection = ({
                 </Badge>
                 <Badge variant="outline">{season.episode_count} odcinków</Badge>
               </div>
-              <p className="text-muted-foreground">{season.overview}</p>
+              <p className="text-muted-foreground text-sm">{season.overview}</p>
               {/* <div>Najnowszy odcinek: {season.}</div> */}
             </div>
           </li>
