@@ -38,7 +38,7 @@ const Hero = async () => {
                       {movie.overview}
                     </p>
                     <Button className="mt-6" asChild>
-                      <Link href={`/movies/${movie.id}`}>{t("seeMore")}</Link>
+                      <Link href={`/movie/${movie.id}`}>{t("seeMore")}</Link>
                     </Button>
                   </div>
                 </div>

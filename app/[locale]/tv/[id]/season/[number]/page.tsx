@@ -24,8 +24,21 @@ export async function generateMetadata({
   });
   return {
     title: season.name,
-    // description: movie.overview,
-    // keywords: movie.genres.map((genre) => genre.name).join(", "),
+    description: season.overview,
+    keywords: season.episodes.map((episode) => episode.name).join(", "),
+    openGraph: {
+      title: season.name,
+      description: season.overview,
+      type: "video.tv_show",
+      images: [
+        {
+          url: getImage(season.poster_path, "poster", "w500"),
+          width: 500,
+          height: 750,
+          alt: season.name,
+        },
+      ],
+    },
   };
 }
 

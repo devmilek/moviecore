@@ -6,6 +6,7 @@ import { Link } from "@/lib/navigation";
 import { getImage } from "@/lib/utils";
 import { CastResponse, Crew, MovieDetails } from "@/types";
 import { ChevronLeft } from "lucide-react";
+import { Metadata } from "next";
 import Image from "next/image";
 import React from "react";
 
@@ -14,6 +15,32 @@ interface MovieCastPageProps {
     id: string;
   };
 }
+
+export const generateMetadata = async ({
+  params,
+}: MovieCastPageProps): Promise<Metadata> => {
+  const movie: MovieDetails = await fetcher({
+    url: `/movie/${params.id}`,
+    options: [],
+  });
+  return {
+    title: `Obsada i załoga filmu ${movie.title}`,
+    description: movie.overview,
+    openGraph: {
+      title: `Obsada i załoga filmu ${movie.title}`,
+      description: movie.overview,
+      type: "video.movie",
+      images: [
+        {
+          url: getImage(movie.poster_path, "poster", "w500"),
+          width: 500,
+          height: 750,
+          alt: movie.title,
+        },
+      ],
+    },
+  };
+};
 
 const MovieCastPage = async ({ params }: MovieCastPageProps) => {
   type SortedCrew = {

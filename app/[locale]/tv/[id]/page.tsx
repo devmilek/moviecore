@@ -31,6 +31,19 @@ export async function generateMetadata({
     title: tv.name,
     description: tv.overview,
     keywords: tv.genres.map((genre) => genre.name).join(", "),
+    openGraph: {
+      title: tv.name,
+      description: tv.overview,
+      type: "video.tv_show",
+      images: [
+        {
+          url: getImage(tv.poster_path, "poster", "w500"),
+          width: 500,
+          height: 750,
+          alt: tv.name,
+        },
+      ],
+    },
   };
 }
 
