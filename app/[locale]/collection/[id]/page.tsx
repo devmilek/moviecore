@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import VoteAverageCard from "@/components/vote-average-card";
 import { fetcher } from "@/lib/fetcher";
-import { getPoster } from "@/lib/utils";
+import { getImage } from "@/lib/utils";
 import { CollectionDetails } from "@/types";
 import Image from "next/image";
 import React from "react";
@@ -16,14 +16,13 @@ interface CollectionPageProps {
 const CollectionPage = async ({ params }: CollectionPageProps) => {
   const collection: CollectionDetails = await fetcher({
     url: `/collection/${params.id}`,
-    lang: "pl",
     options: [],
   });
   return (
     <div className="flex space-x-8">
       <section className="w-96 space-y-5">
         <Image
-          src={getPoster(collection.poster_path, "w780")}
+          src={getImage(collection.poster_path, "poster", "w780")}
           alt={collection.name}
           width={300}
           height={450}
@@ -48,7 +47,7 @@ const CollectionPage = async ({ params }: CollectionPageProps) => {
               <article key={part.id} className="relative w-full">
                 <div className="absolute w-full h-full p-8 bg-black/80 flex items-center space-x-4">
                   <Image
-                    src={getPoster(part.poster_path, "w780")}
+                    src={getImage(part.poster_path, "poster", "w780")}
                     alt={part.title}
                     width={300}
                     height={450}
@@ -64,7 +63,7 @@ const CollectionPage = async ({ params }: CollectionPageProps) => {
                   </div>
                 </div>
                 <Image
-                  src={getPoster(part.backdrop_path, "w780")}
+                  src={getImage(part.backdrop_path, "backdrop", "w780")}
                   alt={part.title}
                   width={300}
                   height={450}

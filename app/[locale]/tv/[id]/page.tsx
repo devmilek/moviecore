@@ -1,7 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { fetcher } from "@/lib/fetcher";
-import { getPoster } from "@/lib/utils";
 import { TvDetails } from "@/types";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -13,6 +12,7 @@ import Link from "next/link";
 import WatchProviders from "@/components/watch_providers";
 import moment from "moment";
 import ReleaseDateCard from "@/components/release-date-card";
+import { getImage } from "@/lib/utils";
 
 interface TvPageProps {
   params: {
@@ -25,7 +25,6 @@ export async function generateMetadata({
 }: TvPageProps): Promise<Metadata> {
   const tv: TvDetails = await fetcher({
     url: `/tv/${params.id}`,
-    lang: "pl",
     options: [],
   });
   return {
@@ -44,7 +43,6 @@ const TvPage = async ({
 }) => {
   const tv: TvDetails = await fetcher({
     url: `/tv/${params.id}`,
-    lang: "pl",
     options: ["append_to_response=watch/providers"],
   });
 
@@ -55,7 +53,7 @@ const TvPage = async ({
     <div className="flex space-x-8">
       <section className="w-96 space-y-5">
         <Image
-          src={getPoster(tv.poster_path, "w780")}
+          src={getImage(tv.poster_path, "poster")}
           alt={tv.name}
           width={300}
           height={450}

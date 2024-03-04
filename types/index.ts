@@ -105,6 +105,36 @@ export interface CountryProviders {
   [countryCode: string]: CountryData;
 }
 
+export interface Video {
+  iso_639_1: string;
+  iso_3166_1: string;
+  name: string;
+  key: string;
+  site: string;
+  size: number;
+  type: string;
+  official: boolean;
+  published_at: string;
+  id: string;
+}
+
+export interface ImagesResponseItem {
+  aspect_ratio: number;
+  file_path: string;
+  height: number;
+  iso_639_1: string;
+  vote_average: number;
+  vote_count: number;
+  width: number;
+}
+
+export interface ImagesResponse {
+  id: number;
+  backdrops: ImagesResponseItem[];
+  posters: ImagesResponseItem[];
+  logos: ImagesResponseItem[];
+}
+
 export interface MovieDetails extends Movie {
   belongs_to_collection: Collection | null;
   "watch/providers": {
@@ -140,6 +170,9 @@ export interface MovieDetails extends Movie {
   credits: {
     cast: Cast[];
     crew: Crew[];
+  };
+  videos: {
+    results: Video[];
   };
 }
 

@@ -1,9 +1,9 @@
 import { Badge } from "@/components/ui/badge";
-import { getPoster } from "@/lib/utils";
+import { Link } from "@/lib/navigation";
+import { getImage } from "@/lib/utils";
 import { Seasons } from "@/types";
 import { StarIcon } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 
 const SeasonSection = ({
@@ -21,13 +21,13 @@ const SeasonSection = ({
         {seasons.map((season) => (
           <li key={season.id} className="flex items-center space-x-4">
             <Image
-              src={getPoster(season.poster_path, "w780")}
+              src={getImage(season.poster_path, "poster", "w780")}
               alt={season.name}
               width={300}
               height={450}
               className="rounded-xl w-60"
             />
-            <div>
+            <div className="w-full">
               <Link
                 href={`/tv/${tvId}/season/${season.season_number}`}
                 className="text-2xl font-bold"

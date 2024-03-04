@@ -1,16 +1,12 @@
 "use client";
 
 import * as Dialog from "@radix-ui/react-dialog";
-import { ImageIcon, SearchIcon, XIcon } from "lucide-react";
+import { SearchIcon } from "lucide-react";
 import React from "react";
 import { Button } from "../ui/button";
 import { useDebouncedCallback } from "use-debounce";
 import { fetcher } from "@/lib/fetcher";
-import { MultiSearchResult, MultiSearchResults } from "@/types";
-import Image from "next/image";
-import { getPoster } from "@/lib/utils";
-import Link from "next/link";
-import { ScrollArea } from "../ui/scroll-area";
+import { MultiSearchResults } from "@/types";
 import SearchResults from "./search-results";
 
 const SearchButton = () => {
@@ -21,7 +17,6 @@ const SearchButton = () => {
   const handleSearch = useDebouncedCallback(async (value: string) => {
     const results: MultiSearchResults = await fetcher({
       url: `/search/multi`,
-      lang: "pl",
       options: [`query=${value}`],
     });
 

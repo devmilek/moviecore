@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import { getPoster } from "@/lib/utils";
+import { getImage } from "@/lib/utils";
 import { Episode } from "@/types";
 import { StarIcon } from "lucide-react";
 import Image from "next/image";
@@ -10,7 +10,7 @@ const EpisodeCard = ({ episode }: { episode: Episode }) => {
     <li key={episode.id} className="flex items-center space-x-4">
       {episode.still_path ? (
         <Image
-          src={getPoster(episode.still_path, "w780")}
+          src={getImage(episode.still_path, "still", "w300")}
           alt={episode.name}
           width={640}
           height={360}
@@ -19,7 +19,7 @@ const EpisodeCard = ({ episode }: { episode: Episode }) => {
       ) : (
         <div className="rounded-xl w-96 aspect-video"></div>
       )}
-      <div>
+      <div className="w-full">
         <h3 className="text-2xl font-bold">{episode.name}</h3>
         <div className="flex space-x-2 mt-2 mb-4">
           <Badge variant="secondary">

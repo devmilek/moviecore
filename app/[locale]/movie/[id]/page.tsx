@@ -16,6 +16,8 @@ import RunTimeCard from "@/components/runtime-card";
 import { getLocale } from "next-intl/server";
 import { Link } from "@/lib/navigation";
 import { getImage } from "@/lib/utils";
+import TrailerButton from "@/components/trailer-button";
+import MediaSection from "./_components/media-section";
 
 interface MoviePageProps {
   params: {
@@ -38,10 +40,15 @@ export async function generateMetadata({
 }
 
 const MoviePage = async ({ params }: MoviePageProps) => {
+  const locale = await getLocale();
   const movie: MovieDetails = await fetcher({
     url: `/movie/${params.id}`,
-    options: ["append_to_response=credits,watch/providers"],
+    options: ["append_to_response=credits,watch/providers,videos"],
   });
+
+  const localeVideo = movie.videos.results.find(
+    (video) => video.iso_639_1.toLocaleLowerCase() === locale
+  );
 
   if (!movie) {
     return notFound();
@@ -49,7 +56,7 @@ const MoviePage = async ({ params }: MoviePageProps) => {
 
   return (
     <div className="flex space-x-8">
-      <section className="w-96 space-y-5">
+      <section className="w-96 space-y-6">
         <Image
           src={getImage(movie.poster_path, "poster", "w500")}
           alt={movie.title}
@@ -61,28 +68,6 @@ const MoviePage = async ({ params }: MoviePageProps) => {
         <VoteAverageCard voteAverage={movie.vote_average} />
         <ReleaseDateCard date={movie.release_date} />
         <RunTimeCard runtime={movie.runtime} />
-        <section>
-          <h2 className="text-2xl font-bold mb-4">Produkcja</h2>
-          <div className="space-y-4">
-            {movie.production_companies.map((company) => (
-              <div key={company.id} className="flex items-center space-x-4">
-                <Image
-                  src={getImage(company.logo_path, "logo", "original")}
-                  alt={company.name}
-                  width={46}
-                  height={46}
-                  className="rounded-md w-12 h-12 object-contain"
-                />
-                <div>
-                  <h3 className="text-md font-bold">{company.name}</h3>
-                  <p className="text-muted-foreground text-sm">
-                    {company.origin_country} {company.id}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
       </section>
       <section className="w-full space-y-8">
         <header>
@@ -92,6 +77,11 @@ const MoviePage = async ({ params }: MoviePageProps) => {
               ({movie.release_date.split("-")[0]})
             </span>
           </h1>
+          {movie.tagline && (
+            <p className="text-muted-foreground text-lg mt-2">
+              {movie.tagline}
+            </p>
+          )}
           <div className="gap-2 flex flex-wrap mt-4">
             {movie.genres.map((genre) => (
               <Badge variant="outline" key={genre.id}>
@@ -99,7 +89,10 @@ const MoviePage = async ({ params }: MoviePageProps) => {
               </Badge>
             ))}
           </div>
-          <Button className="mt-4">Zapisz na liście</Button>
+          <div className="mt-4 space-x-2">
+            <Button>Zapisz na liście</Button>
+            {localeVideo && <TrailerButton video={localeVideo} />}
+          </div>
         </header>
         <section>
           <h2 className="text-2xl font-bold mt-6">Opis</h2>
@@ -107,6 +100,7 @@ const MoviePage = async ({ params }: MoviePageProps) => {
         </section>
         <CollectionCard collection={movie.belongs_to_collection} />
         <CastSection cast={movie.credits.cast} id={params.id} />
+        <MediaSection movieId={params.id} />
       </section>
     </div>
   );

@@ -52,17 +52,12 @@ const TrendingCard = ({
 }) => {
   return (
     <Link
-      className="w-full justify-start relative items-end pl-16 block"
+      className="w-full justify-start relative items-end block pl-5 pt-5"
       href={
         item.media_type === "movie" ? `/movie/${item.id}` : `/tv/${item.id}`
       }
     >
-      <span
-        className={cn(
-          "font-bold text-9xl text-muted-foreground/20 absolute left-0 bottom-0 -z-10",
-          mono.className
-        )}
-      >
+      <span className="absolute bg-primary rounded-full w-10 h-10 flex items-center justify-center font-bold left-0 top-0">
         {index}
       </span>
       <Image

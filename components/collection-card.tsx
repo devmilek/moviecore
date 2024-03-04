@@ -1,9 +1,9 @@
-import { getPoster } from "@/lib/utils";
 import { Collection } from "@/types";
 import Image from "next/image";
 import React from "react";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import { getImage } from "@/lib/utils";
 
 const CollectionCard = ({ collection }: { collection: Collection | null }) => {
   if (!collection) {
@@ -19,7 +19,7 @@ const CollectionCard = ({ collection }: { collection: Collection | null }) => {
         </Button>
       </div>
       <Image
-        src={getPoster(collection.backdrop_path, "w780")}
+        src={getImage(collection.backdrop_path, "backdrop", "w780")}
         alt={collection.name}
         width={300}
         height={450}

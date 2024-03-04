@@ -1,14 +1,14 @@
-import Link from "next/link";
 import React from "react";
 import { Button } from "./ui/button";
 import { SearchIcon } from "lucide-react";
 import SearchButton from "./search-button/search-button";
 import LangSwitcher from "./lang-switcher";
+import { Link } from "@/lib/navigation";
 
 const Navbar = () => {
   const navItems = [
-    { name: "Filmy", href: "/movies" },
-    { name: "Seriale", href: "/series" },
+    { name: "Filmy", href: "/movie" },
+    { name: "Seriale", href: "/tv" },
     { name: "Obsada", href: "/cast" },
   ];
   return (

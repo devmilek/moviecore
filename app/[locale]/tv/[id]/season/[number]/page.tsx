@@ -1,12 +1,12 @@
 import { Badge } from "@/components/ui/badge";
 import { fetcher } from "@/lib/fetcher";
-import { getPoster } from "@/lib/utils";
 import { SeasonDetails } from "@/types";
 import { StarIcon } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import EpisodeCard from "./_components/episode-card";
 import { Metadata } from "next";
+import { getImage } from "@/lib/utils";
 
 interface SeasonPageProps {
   params: {
@@ -20,7 +20,6 @@ export async function generateMetadata({
 }: SeasonPageProps): Promise<Metadata> {
   const season: SeasonDetails = await fetcher({
     url: `/tv/${params.id}/season/${params.number}`,
-    lang: "pl",
     options: [],
   });
   return {
@@ -33,14 +32,13 @@ export async function generateMetadata({
 const SeasonPage = async ({ params }: SeasonPageProps) => {
   const season: SeasonDetails = await fetcher({
     url: `/tv/${params.id}/season/${params.number}`,
-    lang: "pl",
     options: [],
   });
   return (
     <div className="max-w-6xl mx-auto">
       <header className="flex items-center space-x-4">
         <Image
-          src={getPoster(season.poster_path)}
+          src={getImage(season.poster_path, "poster", "w780")}
           alt={season.name}
           width={300}
           height={450}

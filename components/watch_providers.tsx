@@ -11,7 +11,7 @@ const WatchProviders = ({
 }) => {
   if (!watchProviders.PL) return null;
   return (
-    <section className="space-y-4">
+    <section className="space-y-3">
       <h2 className="text-xl font-bold">Dostępne platformy</h2>
       {watchProviders.PL?.flatrate?.map((provider) => (
         <Link
