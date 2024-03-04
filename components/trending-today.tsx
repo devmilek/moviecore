@@ -62,7 +62,7 @@ const TrendingCard = ({
     <Link
       className="w-full justify-start relative items-end block"
       href={
-        item.media_type === "movie" ? `/movies/${item.id}` : `/tv/${item.id}`
+        item.media_type === "movie" ? `/movie/${item.id}` : `/tv/${item.id}`
       }
     >
       <span className="absolute bg-primary rounded-full w-10 h-10 flex items-center justify-center font-bold -left-5 -top-2">

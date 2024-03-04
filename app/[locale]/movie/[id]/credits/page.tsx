@@ -32,7 +32,7 @@ export const generateMetadata = async ({
       type: "video.movie",
       images: [
         {
-          url: getImage(movie.poster_path, "poster", "w500"),
+          url: getImage(movie.backdrop_path, "backdrop", "w780"),
           width: 500,
           height: 750,
           alt: movie.title,

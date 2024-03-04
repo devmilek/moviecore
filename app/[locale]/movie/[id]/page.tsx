@@ -43,10 +43,9 @@ export async function generateMetadata({
       title: movie.title,
       description: movie.overview,
       type: "video.movie",
-      url: `https://watchlist.now.sh/movie/${params.id}`,
       images: [
         {
-          url: getImage(movie.poster_path, "poster", "w500"),
+          url: getImage(movie.backdrop_path, "backdrop", "w780"),
           width: 500,
           height: 750,
           alt: movie.title,

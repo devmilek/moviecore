@@ -4,9 +4,10 @@ import VoteAverageCard from "@/components/vote-average-card";
 import { fetcher } from "@/lib/fetcher";
 import { Link } from "@/lib/navigation";
 import { getImage } from "@/lib/utils";
-import { CollectionDetails, GenreList } from "@/types";
+import { CollectionDetails, GenreList, MovieDetails } from "@/types";
 import { StarIcon } from "lucide-react";
 import moment from "moment";
+import { Metadata } from "next";
 import Image from "next/image";
 import React from "react";
 
@@ -15,6 +16,33 @@ interface CollectionPageProps {
     id: string;
   };
 }
+
+export const generateMetadata = async ({
+  params,
+}: CollectionPageProps): Promise<Metadata> => {
+  const collection: CollectionDetails = await fetcher({
+    url: `/collection/${params.id}`,
+    options: [],
+  });
+  return {
+    title: collection.name,
+    description: collection.overview,
+    keywords: collection.parts.map((part) => part.title).join(", "),
+    openGraph: {
+      title: collection.name,
+      description: collection.overview,
+      type: "video.other",
+      images: [
+        {
+          url: getImage(collection.backdrop_path, "backdrop", "w780"),
+          width: 500,
+          height: 750,
+          alt: collection.name,
+        },
+      ],
+    },
+  };
+};
 
 const CollectionPage = async ({ params }: CollectionPageProps) => {
   const collection: CollectionDetails = await fetcher({

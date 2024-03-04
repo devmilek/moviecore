@@ -37,7 +37,7 @@ export async function generateMetadata({
       type: "video.tv_show",
       images: [
         {
-          url: getImage(tv.poster_path, "poster", "w500"),
+          url: getImage(tv.backdrop_path, "backdrop", "w780"),
           width: 500,
           height: 750,
           alt: tv.name,
