@@ -20,8 +20,6 @@ const SearchButton = () => {
       options: [`query=${value}`],
     });
 
-    console.log(results);
-
     setResults(results);
   }, 300);
 
@@ -54,7 +52,12 @@ const SearchButton = () => {
             />
           </div>
 
-          <SearchResults results={results} />
+          <SearchResults
+            onSelect={() => {
+              setIsOpen(false);
+            }}
+            results={results}
+          />
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
