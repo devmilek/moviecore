@@ -37,7 +37,9 @@ const SeasonSection = ({
               <div className="flex space-x-2 mt-2 mb-4">
                 <Badge variant="secondary">
                   <StarIcon className="h-3 w-3 mr-2" />{" "}
-                  {season.vote_average.toPrecision(2)}
+                  {season.vote_average === 0
+                    ? "Brak ocen"
+                    : season.vote_average.toPrecision(2)}
                 </Badge>
                 <Badge variant="outline">{season.episode_count} odcinków</Badge>
               </div>

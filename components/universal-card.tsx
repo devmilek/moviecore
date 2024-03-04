@@ -9,7 +9,7 @@ const UniversalCard = ({ item }: { item: Movie | Tv }) => {
   const isMovie = "title" in item;
   return (
     <Link
-      href={isMovie ? `/movies/${item.id}` : `/tv/${item.id}`}
+      href={isMovie ? `/movie/${item.id}` : `/tv/${item.id}`}
       className="overflow-hidden rounded-xl aspect-[2/3] relative group cursor-pointer block"
     >
       <div className="w-full h-full absolute p-4 flex items-center justify-center bg-black/60 flex-col text-center opacity-0 group-hover:opacity-100 transition-all">

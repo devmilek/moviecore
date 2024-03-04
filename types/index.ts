@@ -353,3 +353,20 @@ export interface MovieList {
   total_pages: number;
   total_results: number;
 }
+
+export interface Timezone {
+  iso_3166_1: string;
+  zones: string[];
+}
+
+export interface AvailableWatchProviders {
+  results: {
+    display_priorities: {
+      [provider_id: string]: number;
+    };
+    display_priority: number;
+    logo_path: string;
+    provider_name: string;
+    provider_id: number;
+  }[];
+}

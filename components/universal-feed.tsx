@@ -6,22 +6,28 @@ import { Skeleton } from "./ui/skeleton";
 
 const UniversalFeed = async ({
   heading,
-  // items,
   getFn,
 }: {
   heading: string;
-  // items: Movie[] | Tv[];
-  getFn: () => Promise<ResponseWithPage<Movie>>;
+  getFn: () => Promise<ResponseWithPage<Movie | Tv>>;
 }) => {
   const items = await getFn();
   return (
     <section>
       <h1 className="text-3xl font-bold mb-6">{heading}</h1>
       <Suspense fallback={<div>loagind</div>}>
-        <Carousel className="w-full">
+        <Carousel
+          className="w-full"
+          opts={{
+            dragFree: true,
+          }}
+        >
           <CarouselContent>
             {items.results.map((item) => (
-              <CarouselItem key={item.id} className="basis-1/5">
+              <CarouselItem
+                key={item.id}
+                className="basis-1/2 sm:basis-1/4 md:basis-1/5"
+              >
                 <UniversalCard item={item} />
               </CarouselItem>
             ))}
@@ -39,7 +45,10 @@ const UniversalFeedSkeleton = () => {
       <Carousel className="w-full">
         <CarouselContent>
           {[...Array(5)].map((_, i) => (
-            <CarouselItem key={i} className="basis-1/5">
+            <CarouselItem
+              key={i}
+              className="basis-1/2 sm:basis-1/4 md:basis-1/5"
+            >
               <Skeleton
                 key={i}
                 className="aspect-[2/3] w-full rounded-xl"

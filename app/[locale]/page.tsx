@@ -1,4 +1,6 @@
 import Hero from "@/components/hero";
+import MoviesWatchProvider from "@/components/movies-watch-providers";
+import PopularPeople from "@/components/popular-people";
 import TrendingToday from "@/components/trending-today";
 import UniversalFeed, {
   UniversalFeedSkeleton,
@@ -21,6 +23,8 @@ export default function Home() {
           getFn={getTopRatedMovies}
         />
       </Suspense>
+      <PopularPeople />
+      <MoviesWatchProvider />
     </main>
   );
 }

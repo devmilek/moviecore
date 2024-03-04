@@ -10,7 +10,7 @@ import { useTranslations } from "next-intl";
 const Navbar = () => {
   const t = useTranslations("Index");
   const navItems = [
-    { name: t("movies"), href: "/movies" },
+    { name: t("movies"), href: "/movie" },
     { name: t("tvShows"), href: "/tv" },
     { name: t("cast"), href: "/cast" },
   ];

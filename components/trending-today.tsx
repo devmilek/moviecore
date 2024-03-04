@@ -30,16 +30,22 @@ const TrendingToday = async () => {
       <header className="mb-6">
         <h1 className="text-3xl font-bold">{t("trending")}</h1>
       </header>
-      <Carousel>
+      <Carousel
+        className=""
+        opts={{
+          dragFree: true,
+        }}
+      >
         <CarouselContent className="">
           {trendingToday.results.slice(0, 9).map((item, index) => (
-            <CarouselItem key={item.id} className="basis-1/5 pl-6">
+            <CarouselItem
+              key={item.id}
+              className="basis-1/2 sm:basis-1/4 md:basis-1/5 pl-10"
+            >
               <TrendingCard key={item.id} item={item} index={index + 1} />
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
       </Carousel>
     </div>
   );
@@ -54,12 +60,12 @@ const TrendingCard = ({
 }) => {
   return (
     <Link
-      className="w-full justify-start relative items-end block pl-5 pt-5"
+      className="w-full justify-start relative items-end block"
       href={
         item.media_type === "movie" ? `/movies/${item.id}` : `/tv/${item.id}`
       }
     >
-      <span className="absolute bg-primary rounded-full w-10 h-10 flex items-center justify-center font-bold left-0 top-0">
+      <span className="absolute bg-primary rounded-full w-10 h-10 flex items-center justify-center font-bold -left-5 -top-2">
         {index}
       </span>
       <Image
