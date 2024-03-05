@@ -6,8 +6,10 @@ import Image from "next/image";
 import { getImage } from "@/lib/utils";
 import { Badge } from "./ui/badge";
 import { Link } from "@/lib/navigation";
+import { getTranslations } from "next-intl/server";
 
 const PopularPeople = async () => {
+  const t = await getTranslations("Index");
   const popularPeople: ResponseWithPage<Cast> = await fetcher({
     url: "/person/popular",
     options: [],
@@ -23,7 +25,7 @@ const PopularPeople = async () => {
 
   return (
     <section>
-      <h1 className="text-3xl font-bold mb-6">Popularne osoby</h1>
+      <h1 className="text-3xl font-bold mb-6">{t("popularPeople")}</h1>
       <Carousel
         opts={{
           dragFree: true,

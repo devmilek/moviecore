@@ -6,7 +6,7 @@ export const getNowPlaying = async () => {
   const locale = await getLocale();
   const res = await fetcher({
     url: "/movie/now_playing",
-    options: [`region=${locale}`],
+    options: [`region=${locale === "pl" ? "PL" : "US"}`],
   });
 
   return res;
@@ -16,7 +16,7 @@ export const getPopularMovies = async () => {
   const locale = await getLocale();
   const res: MovieList = await fetcher({
     url: "/movie/popular",
-    options: [`region=${locale}`],
+    options: [`region=${locale === "pl" ? "PL" : "US"}`],
   });
 
   return res;
@@ -26,7 +26,7 @@ export const getTopRatedMovies = async () => {
   const locale = await getLocale();
   const res: MovieList = await fetcher({
     url: "/movie/top_rated",
-    options: [`region=${locale}`],
+    options: [`region=${locale === "pl" ? "PL" : "US"}`],
   });
 
   return res;
@@ -36,7 +36,7 @@ export const getUpcomingMovies = async () => {
   const locale = await getLocale();
   const res: MovieList = await fetcher({
     url: "/movie/upcoming",
-    options: [`region=${locale}`],
+    options: [`region=${locale === "pl" ? "PL" : "US"}`],
   });
 
   return res;

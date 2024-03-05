@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import {
   DropdownMenu,
@@ -7,10 +9,12 @@ import {
 } from "./ui/dropdown-menu";
 import { Button } from "./ui/button";
 import { getLocale } from "next-intl/server";
-import { Link } from "@/lib/navigation";
+import { Link, usePathname } from "@/lib/navigation";
+import { useLocale } from "next-intl";
 
-const LangSwitcher = async () => {
-  const locale = await getLocale();
+const LangSwitcher = () => {
+  const locale = useLocale();
+  const pathname = usePathname();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -19,13 +23,13 @@ const LangSwitcher = async () => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem>
-          <Link href="/" locale="pl">
+        <DropdownMenuItem asChild>
+          <Link href={pathname} locale="pl">
             PL
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem>
-          <Link href="/" locale="en">
+        <DropdownMenuItem asChild>
+          <Link href={pathname} locale="en">
             EN
           </Link>
         </DropdownMenuItem>

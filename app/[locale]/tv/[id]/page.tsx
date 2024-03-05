@@ -13,6 +13,7 @@ import WatchProviders from "@/components/watch_providers";
 import moment from "moment";
 import ReleaseDateCard from "@/components/release-date-card";
 import { getImage } from "@/lib/utils";
+import TvHeader from "./_components/tv-header";
 
 interface TvPageProps {
   params: {
@@ -56,15 +57,15 @@ const TvPage = async ({
 }) => {
   const tv: TvDetails = await fetcher({
     url: `/tv/${params.id}`,
-    options: ["append_to_response=watch/providers"],
+    options: ["append_to_response=watch/providers,videos"],
   });
 
   if (!tv) {
     return notFound();
   }
   return (
-    <div className="flex space-x-8">
-      <section className="w-96 space-y-5">
+    <div className="flex md:space-x-8">
+      <section className="w-96 space-y-5 hidden md:block">
         <Image
           src={getImage(tv.poster_path, "poster")}
           alt={tv.name}
@@ -77,27 +78,12 @@ const TvPage = async ({
         <ReleaseDateCard date={tv.first_air_date} />
       </section>
       <section className="w-full space-y-8">
-        <header>
-          <h1 className="text-4xl font-bold">
-            {tv.name}{" "}
-            <span className="text-2xl font-semibold text-foreground/70">
-              ({tv.first_air_date.split("-")[0]})
-            </span>
-          </h1>
-          <p className="mt-1 text-muted-foreground">{tv.tagline}</p>
-          <div className="gap-2 flex flex-wrap mt-4">
-            {tv.genres.map((genre) => (
-              <Badge variant="outline" key={genre.id}>
-                {genre.name}
-              </Badge>
-            ))}
-          </div>
-          <Button className="mt-4">Zapisz na liście</Button>
-        </header>
-        <section>
-          <h2 className="text-2xl font-bold mt-6">Opis</h2>
-          <p className="text-sm text-muted-foreground mt-2">{tv.overview}</p>
-        </section>
+        <TvHeader tv={tv} />
+        <div className="md:hidden space-y-4">
+          <WatchProviders watchProviders={tv["watch/providers"].results} />
+          <VoteAverageCard voteAverage={tv.vote_average} />
+          <ReleaseDateCard date={tv.first_air_date} />
+        </div>
         <SeasonSection seasons={tv.seasons} tvId={params.id} />
         {/* <CastSection cast={movie.credits.cast} /> * */}
       </section>

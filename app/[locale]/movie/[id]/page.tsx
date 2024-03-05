@@ -13,7 +13,7 @@ import WatchProviders from "@/components/watch_providers";
 import VoteAverageCard from "@/components/vote-average-card";
 import ReleaseDateCard from "@/components/release-date-card";
 import RunTimeCard from "@/components/runtime-card";
-import { getLocale } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/lib/navigation";
 import { getImage } from "@/lib/utils";
 import TrailerButton from "@/components/trailer-button";
@@ -58,7 +58,7 @@ export async function generateMetadata({
 }
 
 const MoviePage = async ({ params }: MoviePageProps) => {
-  const locale = await getLocale();
+  const t = await getTranslations("Index");
   const movie: MovieDetails = await fetcher({
     url: `/movie/${params.id}`,
     options: [
@@ -101,7 +101,7 @@ const MoviePage = async ({ params }: MoviePageProps) => {
       </div>
       <Suspense fallback={<UniversalFeedSkeleton />}>
         <UniversalFeed
-          heading="Rekomendacje"
+          heading={t("recommendations")}
           getFn={() =>
             fetcher({
               url: `/movie/${params.id}/recommendations`,
@@ -112,7 +112,7 @@ const MoviePage = async ({ params }: MoviePageProps) => {
       </Suspense>
       <Suspense fallback={<UniversalFeedSkeleton />}>
         <UniversalFeed
-          heading="Podobne filmy"
+          heading={t("simmilar")}
           getFn={() =>
             fetcher({
               url: `/movie/${params.id}/similar`,

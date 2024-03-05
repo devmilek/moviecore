@@ -3,13 +3,15 @@ import React from "react";
 import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
 import { Button } from "./ui/button";
 import { PlayIcon } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 
-const TrailerButton = ({ video }: { video: Video }) => {
+const TrailerButton = async ({ video }: { video: Video }) => {
+  const t = await getTranslations("Index");
   return (
     <Dialog>
       <DialogTrigger asChild>
         <Button variant="outline">
-          <PlayIcon className="h-4 w-4 mr-2" /> Zwiastun
+          <PlayIcon className="h-4 w-4 mr-2" /> {t("trailer")}
         </Button>
       </DialogTrigger>
       <DialogContent>

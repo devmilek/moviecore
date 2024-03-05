@@ -2,10 +2,12 @@ import { Link } from "@/lib/navigation";
 import { getImage } from "@/lib/utils";
 import { Cast } from "@/types";
 import { UserIcon } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import React from "react";
 
-const CastCard = ({ cast }: { cast: Cast }) => {
+const CastCard = async ({ cast }: { cast: Cast }) => {
+  const t = await getTranslations("Index");
   return (
     <article key={cast.id}>
       <Link href={`/people/${cast.id}`} className="flex items-center space-x-4">
@@ -24,7 +26,9 @@ const CastCard = ({ cast }: { cast: Cast }) => {
         )}
         <div>
           <h2 className="font-semibold">{cast.name}</h2>
-          <p className="text-sm text-muted-foreground">jako {cast.character}</p>
+          <p className="text-sm text-muted-foreground">
+            {t("as")} {cast.character}
+          </p>
         </div>
       </Link>
     </article>

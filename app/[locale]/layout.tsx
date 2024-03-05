@@ -3,6 +3,7 @@ import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar";
 import "moment/locale/pl";
+import moment from "moment";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -23,6 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
   params: { locale: string };
 }>) {
+  moment.locale(locale);
   return (
     <html lang={locale}>
       <body className={poppins.className}>

@@ -5,8 +5,16 @@ import { PlusIcon, UserIcon } from "lucide-react";
 import { getImage } from "@/lib/utils";
 import { Link } from "@/lib/navigation";
 import CastCard from "@/components/cast-card";
+import { getTranslations } from "next-intl/server";
 
-const CastSection = ({ cast, id }: { cast: Cast[] | null; id: string }) => {
+const CastSection = async ({
+  cast,
+  id,
+}: {
+  cast: Cast[] | null;
+  id: string;
+}) => {
+  const t = await getTranslations("Index");
   if (!cast) return null;
 
   const castLimit = 8;
@@ -28,9 +36,9 @@ const CastSection = ({ cast, id }: { cast: Cast[] | null; id: string }) => {
               <p>{cast.length - castLimit}</p>
             </div>
             <div>
-              <h2 className="font-semibold">Pełna obsada i załoga</h2>
+              <h2 className="font-semibold">{t("fullCastAndCrew")}</h2>
               <p className="text-sm text-muted-foreground">
-                Zobacz całą obsadę i załoge
+                {t("seeAllCastAndCrew")}
               </p>
             </div>
           </Link>

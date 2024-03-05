@@ -6,20 +6,22 @@ import UniversalFeed, {
   UniversalFeedSkeleton,
 } from "@/components/universal-feed";
 import { getPopularMovies, getTopRatedMovies } from "@/lib/data";
+import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 import { Suspense } from "react";
 
-export default function Home() {
+export default async function Home() {
+  const t = await getTranslations("Index");
   return (
     <main className="space-y-12">
       <Hero />
       <TrendingToday />
       <Suspense fallback={<UniversalFeedSkeleton />}>
-        <UniversalFeed heading="Popularne filmy" getFn={getPopularMovies} />
+        <UniversalFeed heading={t("popularMovies")} getFn={getPopularMovies} />
       </Suspense>
       <Suspense fallback={<UniversalFeedSkeleton />}>
         <UniversalFeed
-          heading="Najwyżej oceniane filmy"
+          heading={t("topRatedMovies")}
           getFn={getTopRatedMovies}
         />
       </Suspense>

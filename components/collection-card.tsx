@@ -4,8 +4,14 @@ import React from "react";
 import { Button } from "./ui/button";
 import { getImage } from "@/lib/utils";
 import { Link } from "@/lib/navigation";
+import { getTranslations } from "next-intl/server";
 
-const CollectionCard = ({ collection }: { collection: Collection | null }) => {
+const CollectionCard = async ({
+  collection,
+}: {
+  collection: Collection | null;
+}) => {
+  const t = await getTranslations("Index");
   if (!collection) {
     return null;
   }
@@ -13,9 +19,9 @@ const CollectionCard = ({ collection }: { collection: Collection | null }) => {
     <section className="relative rounded-xl overflow-hidden h-96">
       <div className="absolute w-full h-full p-10 flex flex-col justify-center items-start bg-gradient-to-r from-black/60 to-black/0">
         <h2 className="text-2xl font-bold text-white">{collection.name}</h2>
-        <p>Zobacz wszystkie części serii</p>
+        <p>{t("seeAllCollectionEpisodes")}</p>
         <Button variant="secondary" className="mt-4" asChild>
-          <Link href={`/collection/${collection.id}`}>Zobacz więcej</Link>
+          <Link href={`/collection/${collection.id}`}>{t("seeMore")}</Link>
         </Button>
       </div>
       <Image
