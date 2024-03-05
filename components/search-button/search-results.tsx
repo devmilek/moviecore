@@ -24,7 +24,7 @@ const SearchResults = ({
   return (
     <ScrollArea className="h-[440px] mt-6 border bg-background rounded-lg">
       <div className="p-4 h-full scroll-auto space-y-6">
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-3 sm:grid-cols-4 gap-4">
           {results.results.map((result) => (
             <button
               key={result.id}

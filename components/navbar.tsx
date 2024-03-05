@@ -6,6 +6,7 @@ import LangSwitcher from "./lang-switcher";
 import { Link } from "@/lib/navigation";
 import { getTranslations } from "next-intl/server";
 import { useTranslations } from "next-intl";
+import MobileNav from "./mobile-nav";
 
 const Navbar = () => {
   const t = useTranslations("Index");
@@ -20,7 +21,7 @@ const Navbar = () => {
         <Link href="/" className="text-xl font-bold">
           Moviecore
         </Link>
-        <nav className="space-x-4 ml-8">
+        <nav className="space-x-4 ml-8 hidden lg:block">
           {navItems.map((item) => (
             <Link
               className="text-white/80 text-sm hover:text-white/100 transition-colors"
@@ -31,11 +32,14 @@ const Navbar = () => {
             </Link>
           ))}
         </nav>
-        <div className="space-x-4 flex ml-auto">
+        <div className="space-x-3 flex ml-auto">
           <SearchButton />
           <LangSwitcher />
-          <Button variant={"ghost"}>{t("signIn")}</Button>
-          <Button>{t("createAccount")}</Button>
+          <MobileNav className="lg:hidden" />
+          <div className="space-x-4 hidden lg:inline-flex">
+            <Button variant={"ghost"}>{t("signIn")}</Button>
+            <Button>{t("createAccount")}</Button>
+          </div>
         </div>
       </div>
     </header>
