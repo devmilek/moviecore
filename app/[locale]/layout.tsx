@@ -29,7 +29,7 @@ export default function RootLayout({
     <html lang={locale}>
       <body className={poppins.className}>
         <Navbar />
-        <main className="overflow-x-hidden py-20">
+        <main className="overflow-x-hidden overflow-y-hidden py-20">
           <div className="container">{children}</div>
         </main>
       </body>
